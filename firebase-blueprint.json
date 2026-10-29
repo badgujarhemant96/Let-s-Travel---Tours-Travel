@@ -1,0 +1,154 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information and travel preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "phoneNumber": { "type": "string", "maxLength": 30 },
+        "membershipTier": { "type": "string", "enum": ["Bronze", "Silver", "Gold", "Platinum VIP"] },
+        "totalTripsBooked": { "type": "number" },
+        "totalSpent": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "membershipTier"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized administrator user with role-based permissions",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["super_admin", "operations_manager", "finance_officer", "support_lead"] },
+        "permissions": { "type": "string", "maxLength": 300 },
+        "isActive": { "type": "boolean" },
+        "lastLogin": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "role", "isActive"]
+    },
+    "Destination": {
+      "title": "Destination",
+      "description": "Curated travel package destination details, itinerary, pricing, and map location",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 120 },
+        "subtitle": { "type": "string", "maxLength": 160 },
+        "category": { "type": "string", "enum": ["Beach & Coastal", "Mountain & Trekking", "Cultural & Heritage", "Adventure & Wildlife", "Urban & City Break", "Island Paradise"] },
+        "country": { "type": "string", "maxLength": 60 },
+        "city": { "type": "string", "maxLength": 60 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "pricePerPerson": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "durationDays": { "type": "number" },
+        "durationNights": { "type": "number" },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "gallery": { "type": "string", "maxLength": 3000 },
+        "mapUrl": { "type": "string", "maxLength": 1000 },
+        "coordinates": { "type": "string", "maxLength": 80 },
+        "inclusions": { "type": "string", "maxLength": 1000 },
+        "highlights": { "type": "string", "maxLength": 1000 },
+        "featured": { "type": "boolean" },
+        "availableSlots": { "type": "number" },
+        "bestTimeToVisit": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "country", "category", "pricePerPerson", "imageUrl", "mapUrl"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Tour booking reservation created by a customer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "bookingReference": { "type": "string", "maxLength": 20 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userEmail": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 100 },
+        "userPhone": { "type": "string", "maxLength": 30 },
+        "destinationId": { "type": "string", "maxLength": 128 },
+        "destinationTitle": { "type": "string", "maxLength": 120 },
+        "destinationCity": { "type": "string", "maxLength": 60 },
+        "destinationCountry": { "type": "string", "maxLength": 60 },
+        "destinationImage": { "type": "string", "maxLength": 1000 },
+        "destinationMapUrl": { "type": "string", "maxLength": 1000 },
+        "travelDate": { "type": "string", "maxLength": 30 },
+        "timeSlot": { "type": "string", "maxLength": 40 },
+        "adults": { "type": "number" },
+        "children": { "type": "number" },
+        "totalTravelers": { "type": "number" },
+        "addOns": { "type": "string", "maxLength": 1000 },
+        "basePrice": { "type": "number" },
+        "addOnsTotal": { "type": "number" },
+        "taxAndFees": { "type": "number" },
+        "discount": { "type": "number" },
+        "promoCode": { "type": "string", "maxLength": 30 },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["Credit/Debit Card", "UPI / Instant Pay", "Net Banking", "PayPal / Google Pay"] },
+        "paymentStatus": { "type": "string", "enum": ["paid", "pending", "refunded", "failed"] },
+        "bookingStatus": { "type": "string", "enum": ["confirmed", "pending_confirmation", "rescheduled", "cancelled", "completed"] },
+        "specialRequests": { "type": "string", "maxLength": 500 },
+        "paymentTransactionId": { "type": "string", "maxLength": 128 },
+        "cancellationReason": { "type": "string", "maxLength": 300 },
+        "refundAmount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "bookingReference", "userId", "userEmail", "destinationId", "destinationTitle", "travelDate", "totalTravelers", "totalAmount", "paymentStatus", "bookingStatus"]
+    },
+    "PaymentRecord": {
+      "title": "PaymentRecord",
+      "description": "Financial payment transaction records for auditing and tracking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "transactionId": { "type": "string", "maxLength": 128 },
+        "bookingId": { "type": "string", "maxLength": 128 },
+        "bookingReference": { "type": "string", "maxLength": 20 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userEmail": { "type": "string", "maxLength": 128 },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "gateway": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["success", "pending", "failed", "refunded"] },
+        "cardLast4": { "type": "string", "maxLength": 8 },
+        "upiId": { "type": "string", "maxLength": 60 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "transactionId", "bookingId", "userId", "amount", "status", "paymentMethod"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "UserProfile" },
+      "description": "Individual traveler profile and stats"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "AdminUser" },
+      "description": "Authorized administrators with designated operational roles"
+    },
+    "/destinations/{destinationId}": {
+      "schema": { "$ref": "Destination" },
+      "description": "Published tour packages, destinations, locations and pricing"
+    },
+    "/bookings/{bookingId}": {
+      "schema": { "$ref": "Booking" },
+      "description": "Customer reservations, travel dates, passenger counts, and states"
+    },
+    "/payments/{paymentId}": {
+      "schema": { "$ref": "PaymentRecord" },
+      "description": "Auditable payment ledger logs and transaction slips"
+    }
+  }
+}

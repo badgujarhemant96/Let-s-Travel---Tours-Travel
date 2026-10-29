@@ -1,0 +1,6 @@
+{
+  "name": "WanderLux Tours & Travels",
+  "description": "Premium tours & travel booking platform with destination discovery, interactive maps, dynamic pricing, real-time booking management, and role-based admin console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
